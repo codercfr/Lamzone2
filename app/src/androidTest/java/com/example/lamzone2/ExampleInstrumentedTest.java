@@ -19,13 +19,16 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 
@@ -55,16 +58,10 @@ public class ExampleInstrumentedTest {
 
 
 
-/*
+
     @Test
     public void addReunion(){
-        ViewInteraction recyclerView = onView(
-                allOf(withId(R.id.RecyclerView),
-                        withParent(withParent(withId(android.R.id.content))),
-                        isDisplayed()));
-        recyclerView.check(matches(isDisplayed()));
-
-        ViewInteraction floatingActionButton = onView(
+         ViewInteraction floatingActionButton = onView(
                 allOf(withId(R.id.fab),
                         childAtPosition(
                                 childAtPosition(
@@ -79,29 +76,49 @@ public class ExampleInstrumentedTest {
                         isDisplayed()));
         textInputEditText.perform(replaceText("test"), closeSoftKeyboard());
 
-        ViewInteraction textInputEditText2 = onView(
-                allOf(withId(R.id.heure_add),
-                        isDisplayed()));
-        textInputEditText2.perform(replaceText("8378"), closeSoftKeyboard());
-
-        ViewInteraction textInputEditText3 = onView(
-                allOf(withId(R.id.sujet_add),
-                        isDisplayed()));
-        textInputEditText3.perform(replaceText("test"), closeSoftKeyboard());
-
-        ViewInteraction textInputEditText4 = onView(
-                allOf(withId(R.id.email_add),
-                        isDisplayed()));
-        textInputEditText4.perform(replaceText("test"), closeSoftKeyboard());
-
         ViewInteraction materialButton = onView(
-                allOf(withId(R.id.create), withText("Save"),
+                allOf(withId(R.id.timeButton), withText("open time picker"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                        0),
+                                3),
                         isDisplayed()));
         materialButton.perform(click());
 
+        ViewInteraction materialButton2 = onView(
+                allOf(withId(android.R.id.button1), withText("OK"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.widget.ScrollView")),
+                                        0),
+                                3)));
+        materialButton2.perform(scrollTo(), click());
+
+        ViewInteraction textInputEditText2 = onView(
+                allOf(withId(R.id.sujet_add),
+                        isDisplayed()));
+        textInputEditText2.perform(replaceText("test"), closeSoftKeyboard());
+
+        ViewInteraction textInputEditText3 = onView(
+                allOf(withId(R.id.email_add),
+                        isDisplayed()));
+        textInputEditText3.perform(replaceText("test"), closeSoftKeyboard());
+
+        ViewInteraction materialButton3 = onView(
+                allOf(withId(R.id.create), withText("Save"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                        0),
+                                6),
+                        isDisplayed()));
+        materialButton3.perform(click());
+
+
         onView(allOf(ViewMatchers.withId(R.id.RecyclerView), isDisplayed())).check(matches(isDisplayed()));
     }
-*/
+
 
     @Test
     public void TestFilter(){

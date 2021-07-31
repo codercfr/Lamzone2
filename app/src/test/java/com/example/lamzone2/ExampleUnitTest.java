@@ -13,7 +13,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Filter;
 
 import static org.junit.Assert.*;
 
@@ -64,7 +63,6 @@ public class ExampleUnitTest {
         filterList=adpater.filterList(reunionSelected,reunions);
         assertTrue(reunionSelected.contains(filterList.get(0).getSujet()));
         assertEquals(filterList.size(),1);
-        //assertTrue(reunionSelected.contains());
 
     }
 
