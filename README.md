@@ -22,7 +22,7 @@ Une fois que tous les champs sont remplis il vous suffit de cliquer sur sauvegar
 
 Cela vous renverra sur la première page où vous verrez votre réunion désormais ajouter à la liste.
 
-Pour utiliser le tri il vous faut cliquer sur l'icône en haut à droite de l'écran.
+Pour utiliser le filtre il vous faut cliquer sur l'icône en haut à droite de l'écran.
 
-Vous pouvez choisir de trier par heure ou par nom de la réunion.
+Vous pouvez choisir de filtrer par heure ou par nom de la réunion.
 
