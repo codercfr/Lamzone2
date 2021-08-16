@@ -2,7 +2,6 @@ package com.example.lamzone2.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 public class Reunion implements Parcelable {
 
     private final String heure ;
@@ -13,11 +12,14 @@ public class Reunion implements Parcelable {
 
     private final String email;
 
-    public Reunion(String heure, String lieu, String sujet, String email) {
+    private int color;
+
+    public Reunion(String heure, String lieu, String sujet, String email, int color) {
         this.heure = heure;
         this.lieu = lieu;
         this.sujet = sujet;
         this.email = email;
+        this.color=color;
     }
 
     protected Reunion(Parcel in) {
@@ -25,9 +27,11 @@ public class Reunion implements Parcelable {
         lieu = in.readString();
         sujet = in.readString();
         email = in.readString();
+
     }
 
     public static final Creator<Reunion> CREATOR = new Creator<Reunion>() {
+
         @Override
         public Reunion createFromParcel(Parcel in) {
             return new Reunion(in);
@@ -39,13 +43,12 @@ public class Reunion implements Parcelable {
         }
     };
 
+
+
     public String getHeure() {
         return heure;
     }
 
-    public String getLieu() {
-        return lieu;
-    }
 
     public String getSujet() {
         return sujet;
@@ -54,6 +57,12 @@ public class Reunion implements Parcelable {
     public String getEmail() {
         return email;
     }
+
+    public int getColor() {
+        return color;
+    }
+
+
 
 
     @Override
@@ -77,5 +86,6 @@ public class Reunion implements Parcelable {
         dest.writeString(lieu);
         dest.writeString(sujet);
         dest.writeString(email);
+        dest.writeInt(color);
     }
 }

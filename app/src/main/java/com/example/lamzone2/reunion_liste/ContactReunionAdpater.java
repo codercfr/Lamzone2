@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.lamzone2.R;
 import com.example.lamzone2.model.Reunion;
@@ -20,7 +20,6 @@ import java.util.List;
 public class ContactReunionAdpater extends RecyclerView.Adapter<ContactReunionAdpater.ViewHolder>implements Filterable {
     // liste pour le recyclerView
     private List<Reunion> reunion ;
-
     //liste pour la recherche
     private final List<Reunion> reunionFull ;
 
@@ -49,11 +48,10 @@ public class ContactReunionAdpater extends RecyclerView.Adapter<ContactReunionAd
     @Override
     public void onBindViewHolder( ContactReunionAdpater.ViewHolder holder, int position) {
         //on peut se servir de textName même si c'est privée car notre classe contient la classe ViewHolder
-
         holder.sujet.setText(reunion.get(position).getSujet());
         holder.heure.setText(reunion.get(position).getHeure());
         holder.email.setText(reunion.get(position).getEmail());
-
+       
 
         //pour effacer réunion
         holder.delete.setOnClickListener(v -> {
@@ -104,7 +102,7 @@ public class ContactReunionAdpater extends RecyclerView.Adapter<ContactReunionAd
 
     //classe qui est obligé d'être crée quand on veut faire un recycler view.
     public static class ViewHolder extends RecyclerView.ViewHolder{
-
+        private final ImageView avatar;
         private final TextView sujet;
         private final TextView heure;
         private final TextView email;
@@ -115,6 +113,7 @@ public class ContactReunionAdpater extends RecyclerView.Adapter<ContactReunionAd
         public ViewHolder(View itemView) {
             super(itemView);
             //pas dans une activity donc il faut utiliser le itemView pour rajouter une vue.
+            avatar=itemView.findViewById(R.id.circle_img);
             heure=itemView.findViewById(R.id.heureSalle);
             sujet=itemView.findViewById(R.id.sujet);
             email=itemView.findViewById(R.id.email);
