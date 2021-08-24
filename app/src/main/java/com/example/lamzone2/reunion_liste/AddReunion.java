@@ -7,11 +7,14 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 
+import android.view.View;
 import android.widget.Button;
 
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -26,12 +29,16 @@ import com.example.lamzone2.service.ReunionApiService;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Objects;
 
     public class AddReunion  extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
     private TextInputLayout reunionL, sujetL, emailL;
-    private TextView heureL ;
-
+    private EditText heureL,dateReuinon ;
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat firstDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 
 
@@ -44,8 +51,8 @@ import java.util.Objects;
         heureL = findViewById(R.id.heureLyt);
         sujetL = findViewById(R.id.sujetLyt);
         emailL = findViewById(R.id.emailLyt);
-
-
+        dateReuinon=findViewById(R.id.dateReunion);
+        Button btnDate = findViewById(R.id.btn_Date);
         Button datePicker = findViewById(R.id.timeButton);
         MaterialButton addReunion = findViewById(R.id.create);
         mApiService= Di.getService();
@@ -56,27 +63,37 @@ import java.util.Objects;
 
         });
 
-        addReunion.setOnClickListener(v -> {
-            if(reunionL.getEditText().getText().toString().equals("") || sujetL.getEditText().getText().toString().equals("")|| emailL.getEditText().getText().toString().equals("")){
-                Toast.makeText(getApplicationContext(), "veuillez rentrer un email/reunion/sujet", Toast.LENGTH_LONG).show();
-            }
-            Reunion reunion = new Reunion(
-                    Objects.requireNonNull(heureL.getText().toString()),
-                    Objects.requireNonNull(reunionL.getEditText()).getText().toString(),
-                    Objects.requireNonNull(sujetL.getEditText()).getText().toString(),
-                    Objects.requireNonNull(emailL.getEditText()).getText().toString(),
-                    0xFFB4CDBA
-            );
-            Intent intent = new Intent();
-            intent.putExtra("reunion", reunion);
-            setResult(RESULT_OK, intent);
-            mApiService.getReunion();
-            finish();
+        btnDate.setOnClickListener(v -> {
+            DialogFragment dateReunion = new DatePickerFragment();
+            dateReunion.show(getSupportFragmentManager(), "date picker");
         });
 
+        addReunion.setOnClickListener(v -> {
+            if(reunionL.getEditText().getText().toString().equals("") || sujetL.getEditText().getText().toString().equals("")|| emailL.getEditText().getText().toString().equals("")){
+                Toast toast = Toast.makeText(getApplicationContext(),"veuillez rentrer un email/reunion/sujet",Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER,0,0);
+                toast.show();
+            }
+            else {
+                Reunion reunion = new Reunion(
+                        Objects.requireNonNull(heureL.getText().toString()),
+                        Objects.requireNonNull(reunionL.getEditText()).getText().toString(),
+                        Objects.requireNonNull(sujetL.getEditText()).getText().toString(),
+                        Objects.requireNonNull(emailL.getEditText()).getText().toString(),
+                        0xFFB4CDBA,
+                        dateReuinon.getText().toString()
+                );
 
+                Intent intent = new Intent();
+                intent.putExtra("reunion", reunion);
+                setResult(RESULT_OK, intent);
+                mApiService.getReunion();
+                finish();
+            }
+        });
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -86,7 +103,6 @@ import java.util.Objects;
         return super.onOptionsItemSelected(item);
     }
 
-
         @SuppressLint("SetTextI18n")
         @Override
         //recupére les valeurs du timerPicker
@@ -95,7 +111,6 @@ import java.util.Objects;
             textView.setText(  hourOfDay+"h"+minute+"" );
             //+minute si l'on veut rajouter les minutes
         }
-
 
         @Override
     protected void onResume() {
@@ -115,14 +130,18 @@ import java.util.Objects;
 
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//            Calendar c = Calendar.getInstance();
-//            c.set(Calendar.YEAR, year);
-//            c.set(Calendar.MONTH, month);
-//            c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-//            String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-//            TextView textView = (TextView) findViewById(R.id.textView);
-//            textView.setText(currentDateString);
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.YEAR, year);
+            c.set(Calendar.MONTH, month);
+            c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            String currentDateString = DateFormat.getDateInstance(DateFormat.SHORT).format(c.getTime());
+            TextView textView = findViewById(R.id.dateReunion);
+            textView.setText(currentDateString);
         }
+
+
+
+
     }
 
 

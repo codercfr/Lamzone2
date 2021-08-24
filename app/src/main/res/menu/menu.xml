@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/action_search"
         android:icon="@drawable/filter_list"
         android:title="Search"
         app:showAsAction="ifRoom|collapseActionView"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
-/>
+>
+    <menu tools:ignore="ExtraText">
 
+    <item
+        android:id="@+id/show_Date"
+        android:title="Date Reunion"
+        app:showAsAction="never|withText"/>
+
+     <item
+         android:id="@+id/sujet_Reunion"
+         android:title="Sujet"
+         app:actionViewClass="androidx.appcompat.widget.SearchView"
+         app:showAsAction="always|collapseActionView"/>
+    </menu>
+
+
+
+    </item>
 </menu>

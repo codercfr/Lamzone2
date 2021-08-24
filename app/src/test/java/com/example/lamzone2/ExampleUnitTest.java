@@ -48,7 +48,7 @@ public class ExampleUnitTest {
     @Test
     public void addNeighbourReunion(){
         List<Reunion> reunions= service.getReunion();
-        Reunion reunion = new Reunion("10","salle B","Bowser","catherine@lamzone2",0xFFA3CED2);
+        Reunion reunion = new Reunion("10","salle B","Bowser","catherine@lamzone2",0xFFA3CED2, "Vendredi 15 Octobre 2018");
         reunions.add(reunion);
         assertTrue(service.getReunion().contains(reunion));
     }

@@ -10,18 +10,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:orientation="vertical"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/avatar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="40dp"
-            android:layout_gravity="center_horizontal"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/reunionLyt"
@@ -40,23 +33,27 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
+        <EditText
             android:id="@+id/heureLyt"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
             android:layout_marginTop="18dp"
-            android:text="Select Time">
+            android:ems="10"
+            android:hint="Heure"
+            android:gravity=""
+            >
 
-        </TextView>
+        </EditText>
+
         <Button
             android:id="@+id/timeButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="open time picker"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="Timer"
             tools:ignore="HardcodedText">
-        </Button>
 
+        </Button>
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -88,9 +85,23 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Email"
-                android:inputType="textMultiLine"
-                />
+                android:inputType="textMultiLine" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <EditText
+            android:id="@+id/dateReunion"
+            android:layout_marginTop="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:hint="Date"
+            />
+        
+        <Button
+            android:id="@+id/btn_Date"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="Date"
+            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/create"
@@ -98,9 +109,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:cornerRadius="20dp"
             android:layout_marginTop="20dp"
-            android:text="Save"/>
+            android:text="Save"
+            app:cornerRadius="20dp" />
+
+
 
     </LinearLayout>
 
