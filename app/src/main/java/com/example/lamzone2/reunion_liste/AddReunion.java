@@ -39,10 +39,8 @@ import java.util.Objects;
     private EditText heureL,dateReuinon ;
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat firstDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private ReunionApiService mApiService;
 
-
-
-        private ReunionApiService mApiService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +58,6 @@ import java.util.Objects;
         datePicker.setOnClickListener(v -> {
             DialogFragment timePicker = new TimePickerFragment();
             timePicker.show(getSupportFragmentManager(),"time picker");
-
         });
 
         btnDate.setOnClickListener(v -> {

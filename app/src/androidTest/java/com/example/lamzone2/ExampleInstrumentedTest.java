@@ -11,6 +11,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
@@ -121,7 +122,7 @@ public class ExampleInstrumentedTest {
 
 
     @Test
-    public void TestFilter(){
+    public void TestFilterSujet(){
         ViewInteraction actionMenuItemView = onView(
                 allOf(withId(R.id.action_search), withContentDescription("Search"),
                         childAtPosition(
@@ -146,6 +147,67 @@ public class ExampleInstrumentedTest {
 
     }
 
+@Test
+public void TestFilterByDate(){
+    ViewInteraction actionMenuItemView = onView(
+            allOf(withId(R.id.action_search), withContentDescription("Search"),
+                    childAtPosition(
+                            childAtPosition(
+                                    withId(R.id.action_bar),
+                                    1),
+                            0),
+                    isDisplayed()));
+    actionMenuItemView.perform(click());
+
+    ViewInteraction materialTextView = onView(
+            allOf(withId(R.id.title), withText("Date Reunion"),
+                    childAtPosition(
+                            childAtPosition(
+                                    withId(R.id.content),
+                                    0),
+                            0),
+                    isDisplayed()));
+    materialTextView.perform(click());
+
+    ViewInteraction appCompatImageButton = onView(
+            allOf(withClassName(Matchers.is("androidx.appcompat.widget.AppCompatImageButton")), withContentDescription("Next month"),
+                    childAtPosition(
+                            allOf(withClassName(Matchers.is("android.widget.DayPickerView")),
+                                    childAtPosition(
+                                            withClassName(Matchers.is("com.android.internal.widget.DialogViewAnimator")),
+                                            0)),
+                            2)));
+    appCompatImageButton.perform(scrollTo(), click());
+
+    ViewInteraction appCompatImageButton2 = onView(
+            allOf(withClassName(Matchers.is("androidx.appcompat.widget.AppCompatImageButton")), withContentDescription("Next month"),
+                    childAtPosition(
+                            allOf(withClassName(Matchers.is("android.widget.DayPickerView")),
+                                    childAtPosition(
+                                            withClassName(Matchers.is("com.android.internal.widget.DialogViewAnimator")),
+                                            0)),
+                            2)));
+    appCompatImageButton2.perform(scrollTo(), click());
+
+    ViewInteraction materialButton = onView(
+            allOf(withId(android.R.id.button1), withText("OK"),
+                    childAtPosition(
+                            childAtPosition(
+                                    withClassName(Matchers.is("android.widget.ScrollView")),
+                                    0),
+                            3)));
+    materialButton.perform(scrollTo(), click());
+
+    ViewInteraction textView = onView(
+            allOf(withId(R.id.sujet), withText("Luigi"),
+                    withParent(allOf(withId(R.id.parent),
+                            withParent(withId(R.id.RecyclerView)))),
+                    isDisplayed()));
+    textView.check(matches(withText("Luigi")));
+
+}
+
+
     @Test
     public void deleteReunion(){
         ViewInteraction appCompatImageButton = onView(
@@ -165,8 +227,6 @@ public class ExampleInstrumentedTest {
                                 withParent(withId(R.id.RecyclerView)))),
                         isDisplayed()));
         textView.check(doesNotExist());
-
-
     }
 
     private static Matcher<View> childAtPosition(

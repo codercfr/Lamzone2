@@ -48,7 +48,7 @@ public class ExampleUnitTest {
     @Test
     public void addNeighbourReunion(){
         List<Reunion> reunions= service.getReunion();
-        Reunion reunion = new Reunion("10","salle B","Bowser","catherine@lamzone2",0xFFA3CED2, "Vendredi 15 Octobre 2018");
+        Reunion reunion = new Reunion("10","salle B","Bowser","catherine@lamzone2",0xFFA3CED2, "10/8/21");
         reunions.add(reunion);
         assertTrue(service.getReunion().contains(reunion));
     }
@@ -63,6 +63,8 @@ public class ExampleUnitTest {
         filterList=adpater.filterList(reunionSelected,reunions);
         assertTrue(reunionSelected.contains(filterList.get(0).getSujet()));
         assertEquals(filterList.size(),1);
+        String dateReunionSelected = service.getReunion().get(0).getDatetime();
+        assertTrue(dateReunionSelected.contains(filterList.get(0).getDatetime()));
 
     }
 

@@ -128,7 +128,7 @@ public class ContactReunionAdpater extends RecyclerView.Adapter<ContactReunionAd
         }else
         {
             for(Reunion items: reunionFull) {
-                if (items.getSujet().toLowerCase().contains(constraint.toString().toLowerCase()) || items.getHeure().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                if (items.getSujet().toLowerCase().contains(constraint.toString().toLowerCase()) || items.getDatetime().toLowerCase().contains(constraint.toString().toLowerCase())) {
                     filteredList.add(items);
                 }
             }
