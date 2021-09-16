@@ -131,8 +131,7 @@ public class MainActivity extends AppCompatActivity implements  DatePickerDialog
         }
         if(item.getItemId()== R.id.menu_Home)
         {
-            //adapter.get;
-            return  true;
+            adapter.getFilter().filter("");
 
         }
         return super.onOptionsItemSelected(item);
