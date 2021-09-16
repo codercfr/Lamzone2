@@ -4,12 +4,12 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.widget.EditText;
+
 
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.platform.app.InstrumentationRegistry;
+
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -32,8 +32,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 
 /**

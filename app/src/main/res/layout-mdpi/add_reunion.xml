@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Reunion"
-                android:inputType="textPersonName" />
+                 />
 
         </com.google.android.material.textfield.TextInputLayout>
 

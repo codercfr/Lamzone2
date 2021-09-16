@@ -69,7 +69,7 @@ public class Reunion implements Parcelable {
         return color;
     }
 
-
+    public String getReunionName(){return lieu;}
 
 
     @Override
