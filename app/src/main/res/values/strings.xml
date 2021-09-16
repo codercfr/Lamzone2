@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Lamzone2</string>
+    <string-array name="salleReunion">
+        <item></item>
+        <item>Reunion A</item>
+        <item>Reunion B</item>
+        <item>Reunion C</item>
+    </string-array>
 </resources>

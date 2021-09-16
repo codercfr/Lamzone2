@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -122,6 +121,7 @@ public class ContactReunionAdpater extends RecyclerView.Adapter<ContactReunionAd
             delete=itemView.findViewById(R.id.delete_bouton);
         }
     }
+
 
      public List<Reunion> filterList(CharSequence constraint,List<Reunion> reunionFull){
         List<Reunion>filteredList =new ArrayList<>();

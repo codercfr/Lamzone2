@@ -36,6 +36,7 @@ public class ExampleUnitTest {
         assertThat(reunions, IsIterableContainingInAnyOrder.containsInAnyOrder(Objects.requireNonNull(expected_reunions.toArray())));
 
     }
+
     @Test
      public void deleteNeighbourReunion(){
         Reunion reunionToDelete = service.getReunion().get(0);

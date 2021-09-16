@@ -2,9 +2,6 @@ package com.example.lamzone2.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.util.Date;
-
 public class Reunion implements Parcelable {
 
     private final String heure ;
@@ -70,6 +67,7 @@ public class Reunion implements Parcelable {
     }
 
     public String getReunionName(){return lieu;}
+
 
 
     @Override

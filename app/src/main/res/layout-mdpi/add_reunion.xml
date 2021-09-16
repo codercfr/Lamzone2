@@ -10,38 +10,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/reunionLyt"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/reunion_add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:focusable="false"
                 android:hint="Reunion"
                  />
+            <Spinner
+                android:id="@+id/project_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="12dp"
+                android:textSize="14sp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+
 
         <EditText
             android:id="@+id/heureLyt"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="54dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="5dp"
             android:ems="10"
             android:hint="Heure"
-            android:gravity=""
+            android:focusable="false"
             >
 
         </EditText>
@@ -61,7 +60,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp">
+            android:layout_marginTop="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/sujet_add"
@@ -90,10 +89,11 @@
 
         <EditText
             android:id="@+id/dateReunion"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:hint="Date"
+            android:focusable="false"
             />
         
         <Button
@@ -109,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="Save"
             app:cornerRadius="20dp" />
 

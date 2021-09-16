@@ -3,42 +3,37 @@
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.view.MenuItemCompat;
+
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
+
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+
 import android.widget.DatePicker;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lamzone2.model.Reunion;
 import com.example.lamzone2.reunion_liste.AddReunion;
 import com.example.lamzone2.reunion_liste.ContactReunionAdpater;
 import com.example.lamzone2.reunion_liste.DatePickerFragment;
-import com.example.lamzone2.reunion_liste.TimePickerFragment;
+
 import com.example.lamzone2.service.DummyReunionApiService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.Calendar;
-import java.util.Date;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements  DatePickerDialog.OnDateSetListener   {
@@ -46,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements  DatePickerDialog
     private RecyclerView myRecyclerView;
     private List<Reunion> rReunion;
     private ContactReunionAdpater adapter;
-    private DummyReunionApiService mApiservice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,19 +56,26 @@ public class MainActivity extends AppCompatActivity implements  DatePickerDialog
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         assert result.getData() != null;
                         Reunion reunion = result.getData().getExtras().getParcelable("reunion");
+                        //pour bloquer l
+                        for(int i =0 ; i<rReunion.size();i++){
+                            if (reunion.getHeure().equals(rReunion.get(i).getHeure()) && reunion.getReunionName().equals(rReunion.get(i).getReunionName())){
+                                Toast.makeText(getApplicationContext(),"impossible de reserver à cette heure veuillez décaller",Toast.LENGTH_LONG).show();
+
+                            }
+                        }
                        rReunion.add(reunion);
-                       Toast.makeText(getApplicationContext(), ""+reunion.getDatetime(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
         //open AddReunion
-        add_button.setOnClickListener(v -> {
-            Intent intent= new Intent(this, AddReunion.class);
-            someactivityResultLuncher.launch(intent);
-        });
+            add_button.setOnClickListener(v -> {
+                Intent intent = new Intent(this, AddReunion.class);
+                someactivityResultLuncher.launch(intent);
+            });
 
-    }
-    
+
+        }
+
     private void initList() {
         DummyReunionApiService mApiservice = new DummyReunionApiService();
         rReunion= mApiservice.getReunion();
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements  DatePickerDialog
         super.onStart();
 
     }
+
 
     @Override
     protected void onResume() {
@@ -115,8 +117,12 @@ public class MainActivity extends AppCompatActivity implements  DatePickerDialog
                 return false;
             }
         });
-
         return true;
+    }
+
+
+    public void verifyReunion(){
+
     }
 
 

@@ -16,13 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/avatar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="40dp"
-            android:layout_gravity="center_horizontal"/>
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/reunionLyt"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -37,6 +30,12 @@
                 android:ems="10"
                 android:hint="Reunion"
                 android:inputType="textPersonName" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Salle Reunion">
+            </Button>
 
         </com.google.android.material.textfield.TextInputLayout>
 

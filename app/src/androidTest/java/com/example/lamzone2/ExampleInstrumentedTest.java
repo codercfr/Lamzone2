@@ -1,6 +1,5 @@
 package com.example.lamzone2;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -184,7 +183,7 @@ public class ExampleInstrumentedTest {
         ViewInteraction viewGroup = onView(
                 allOf(withId(R.id.parent),
                         withParent(allOf(withId(R.id.RecyclerView),
-                                withParent(IsInstanceOf.<View>instanceOf(android.widget.RelativeLayout.class)))),
+                                withParent(IsInstanceOf.instanceOf(android.widget.RelativeLayout.class)))),
                         isDisplayed()));
         viewGroup.check(matches(isDisplayed()));
     }
