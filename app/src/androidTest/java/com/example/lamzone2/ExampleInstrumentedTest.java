@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 
+import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -18,6 +19,8 @@ import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -32,6 +35,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static org.hamcrest.Matchers.anything;
+import static org.hamcrest.Matchers.is;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -52,32 +57,41 @@ public class ExampleInstrumentedTest {
     }
 
 
-
-
     @Test
-    public void addReunion(){
-        ViewInteraction floatingActionButton = onView(
-                allOf(withId(R.id.fab),
+    public void addReunion(){ViewInteraction floatingActionButton = onView(
+            allOf(withId(R.id.fab),
+                    childAtPosition(
+                            childAtPosition(
+                                    withId(android.R.id.content),
+                                    0),
+                            1),
+                    isDisplayed()));
+        floatingActionButton.perform(click());
+
+        ViewInteraction appCompatSpinner = onView(
+                allOf(withId(R.id.project_spinner),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(android.R.id.content),
+                                        withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                         0),
                                 1),
                         isDisplayed()));
-        floatingActionButton.perform(click());
+        appCompatSpinner.perform(click());
 
-        ViewInteraction textInputEditText = onView(
-                allOf(withId(R.id.reunion_add),
-                        isDisplayed()));
-        textInputEditText.perform(replaceText("test"), closeSoftKeyboard());
+        DataInteraction appCompatCheckedTextView = onData(anything())
+                .inAdapterView(childAtPosition(
+                        withClassName(is("android.widget.PopupWindow$PopupBackgroundView")),
+                        0))
+                .atPosition(2);
+        appCompatCheckedTextView.perform(click());
 
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.timeButton), withText("Timer"),
                         childAtPosition(
                                 childAtPosition(
-                                        withClassName(Matchers.is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                        withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                         0),
-                                2),
+                                3),
                         isDisplayed()));
         materialButton.perform(click());
 
@@ -85,28 +99,28 @@ public class ExampleInstrumentedTest {
                 allOf(withId(android.R.id.button1), withText("OK"),
                         childAtPosition(
                                 childAtPosition(
-                                        withClassName(Matchers.is("android.widget.ScrollView")),
+                                        withClassName(is("android.widget.ScrollView")),
                                         0),
                                 3)));
         materialButton2.perform(scrollTo(), click());
 
-        ViewInteraction textInputEditText2 = onView(
+        ViewInteraction textInputEditText = onView(
                 allOf(withId(R.id.sujet_add),
                         isDisplayed()));
-        textInputEditText2.perform(replaceText("test"), closeSoftKeyboard());
+        textInputEditText.perform(replaceText("test"), closeSoftKeyboard());
 
-        ViewInteraction textInputEditText3 = onView(
+        ViewInteraction textInputEditText2 = onView(
                 allOf(withId(R.id.email_add),
                         isDisplayed()));
-        textInputEditText3.perform(replaceText("test"), closeSoftKeyboard());
+        textInputEditText2.perform(replaceText("test"), closeSoftKeyboard());
 
         ViewInteraction materialButton3 = onView(
                 allOf(withId(R.id.btn_Date), withText("Date"),
                         childAtPosition(
                                 childAtPosition(
-                                        withClassName(Matchers.is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                        withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                         0),
-                                6),
+                                7),
                         isDisplayed()));
         materialButton3.perform(click());
 
@@ -114,7 +128,7 @@ public class ExampleInstrumentedTest {
                 allOf(withId(android.R.id.button1), withText("OK"),
                         childAtPosition(
                                 childAtPosition(
-                                        withClassName(Matchers.is("android.widget.ScrollView")),
+                                        withClassName(is("android.widget.ScrollView")),
                                         0),
                                 3)));
         materialButton4.perform(scrollTo(), click());
@@ -123,9 +137,9 @@ public class ExampleInstrumentedTest {
                 allOf(withId(R.id.create), withText("Save"),
                         childAtPosition(
                                 childAtPosition(
-                                        withClassName(Matchers.is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                        withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                         0),
-                                7),
+                                8),
                         isDisplayed()));
         materialButton5.perform(click());
 
@@ -135,7 +149,6 @@ public class ExampleInstrumentedTest {
                                 withParent(withId(R.id.RecyclerView)))),
                         isDisplayed()));
         textView.check(matches(withText("test")));
-
 
 }
 
@@ -162,11 +175,11 @@ public class ExampleInstrumentedTest {
         materialTextView.perform(click());
 
         ViewInteraction appCompatImageButton = onView(
-                allOf(withClassName(Matchers.is("androidx.appcompat.widget.AppCompatImageButton")), withContentDescription("Next month"),
+                allOf(withClassName(is("androidx.appcompat.widget.AppCompatImageButton")), withContentDescription("Next month"),
                         childAtPosition(
-                                allOf(withClassName(Matchers.is("android.widget.DayPickerView")),
+                                allOf(withClassName(is("android.widget.DayPickerView")),
                                         childAtPosition(
-                                                withClassName(Matchers.is("com.android.internal.widget.DialogViewAnimator")),
+                                                withClassName(is("com.android.internal.widget.DialogViewAnimator")),
                                                 0)),
                                 2)));
         appCompatImageButton.perform(scrollTo(), click());
@@ -175,20 +188,23 @@ public class ExampleInstrumentedTest {
                 allOf(withId(android.R.id.button1), withText("OK"),
                         childAtPosition(
                                 childAtPosition(
-                                        withClassName(Matchers.is("android.widget.ScrollView")),
+                                        withClassName(is("android.widget.ScrollView")),
                                         0),
                                 3)));
         materialButton.perform(scrollTo(), click());
 
-        ViewInteraction viewGroup = onView(
-                allOf(withId(R.id.parent),
-                        withParent(allOf(withId(R.id.RecyclerView),
-                                withParent(IsInstanceOf.instanceOf(android.widget.RelativeLayout.class)))),
+        ViewInteraction appCompatImageButton2 = onView(
+                allOf(withId(R.id.delete_bouton),
+                        childAtPosition(
+                                allOf(withId(R.id.parent),
+                                        childAtPosition(
+                                                withId(R.id.RecyclerView),
+                                                0)),
+                                7),
                         isDisplayed()));
-        viewGroup.check(matches(isDisplayed()));
+        appCompatImageButton2.perform(click());
+
     }
-
-
 
 
 

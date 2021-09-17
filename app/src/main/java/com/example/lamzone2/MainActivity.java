@@ -22,12 +22,14 @@ import android.view.MenuItem;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
+import com.example.lamzone2.di.Di;
 import com.example.lamzone2.model.Reunion;
 import com.example.lamzone2.reunion_liste.AddReunion;
 import com.example.lamzone2.reunion_liste.ContactReunionAdpater;
 import com.example.lamzone2.reunion_liste.DatePickerFragment;
 
 import com.example.lamzone2.service.DummyReunionApiService;
+import com.example.lamzone2.service.ReunionApiService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements  DatePickerDialog
     private RecyclerView myRecyclerView;
     private List<Reunion> rReunion;
     private ContactReunionAdpater adapter;
+    private ReunionApiService mApiservice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements  DatePickerDialog
         setContentView(R.layout.main_activity);
         myRecyclerView= findViewById(R.id.RecyclerView);
         FloatingActionButton add_button = findViewById(R.id.fab);
+        mApiservice=Di.getService();
         initList();
 
         ActivityResultLauncher<Intent> someactivityResultLuncher= registerForActivityResult(
@@ -56,14 +60,24 @@ public class MainActivity extends AppCompatActivity implements  DatePickerDialog
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         assert result.getData() != null;
                         Reunion reunion = result.getData().getExtras().getParcelable("reunion");
+                        //a corriger pour que ca soit différent pas null sinon ca ne fonctionne pas 
+                        Reunion reunionTest =null;
                         //pour bloquer l
-                        for(int i =0 ; i<rReunion.size();i++){
-                            if (reunion.getHeure().equals(rReunion.get(i).getHeure()) && reunion.getReunionName().equals(rReunion.get(i).getReunionName())){
-                                Toast.makeText(getApplicationContext(),"impossible de reserver à cette heure veuillez décaller",Toast.LENGTH_LONG).show();
-
+                        for(int i =0 ; i<rReunion.size();i++) {
+                            if (reunion.getHeure().equals(rReunion.get(i).getHeure()) && reunion.getReunionName().equals(rReunion.get(i).getReunionName())
+                                    && reunion.getDatetime().equals(rReunion.get(i).getDatetime())) {
+                                Toast.makeText(getApplicationContext(), "impossible de reserver à cette heure veuillez décaller", Toast.LENGTH_LONG).show();
+                                reunionTest=rReunion.get(i);
+                                break;
+                            }
+                            else{
+                                reunionTest=rReunion.get(i);
                             }
                         }
-                       rReunion.add(reunion);
+                        assert reunionTest != null;
+                        if(!reunion.getHeure().equals(reunionTest.getHeure()) || !reunion.getReunionName().equals(reunionTest.getReunionName())) {
+                            rReunion.add(reunion);
+                        }
                     }
                 });
 
@@ -80,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements  DatePickerDialog
         DummyReunionApiService mApiservice = new DummyReunionApiService();
         rReunion= mApiservice.getReunion();
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        myRecyclerView.setAdapter(new ContactReunionAdpater(rReunion));
         adapter=new ContactReunionAdpater(rReunion);
         myRecyclerView.setAdapter(adapter);
     }
@@ -96,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements  DatePickerDialog
     protected void onResume() {
         super.onResume();
         initList();
+
     }
 
     //connecter le filtre dans l'adapter et la vue
@@ -113,17 +127,15 @@ public class MainActivity extends AppCompatActivity implements  DatePickerDialog
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
+                rReunion.clear();
+                rReunion.addAll(mApiservice.getReunionFilter(newText));
+                adapter.notifyDataSetChanged();
                 return false;
             }
         });
         return true;
     }
 
-
-    public void verifyReunion(){
-
-    }
 
 
     //rajouter la méthode onOptionSelected
@@ -137,8 +149,9 @@ public class MainActivity extends AppCompatActivity implements  DatePickerDialog
         }
         if(item.getItemId()== R.id.menu_Home)
         {
-            adapter.getFilter().filter("");
-
+            rReunion.clear();
+            rReunion.addAll(mApiservice.getReunion());
+            adapter.notifyDataSetChanged();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -163,11 +176,14 @@ public class MainActivity extends AppCompatActivity implements  DatePickerDialog
         {
             if(currentDateString.equals(rReunion.get(i).getDatetime()))
             {
-                adapter.getFilter().filter(currentDateString);
+                rReunion.clear();
+                rReunion.addAll(mApiservice.getReunionFilter(currentDateString));
+                adapter.notifyDataSetChanged();
             }
         }
 
     }
+
 
 
 

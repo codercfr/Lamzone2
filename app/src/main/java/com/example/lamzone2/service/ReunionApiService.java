@@ -11,6 +11,7 @@ public interface ReunionApiService {
 
     List<Reunion>getReunion();
 
+    List<Reunion> getReunionFilter(String constraint);
 
 
 }
